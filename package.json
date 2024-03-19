@@ -1,0 +1,10 @@
+{
+    "name": "nom_du_projet",
+    "version": "1.0.0",
+    "type": "module",
+    "dependencies": {
+      "package1": "version",
+      "package2": "version"
+    }
+  }
+  
