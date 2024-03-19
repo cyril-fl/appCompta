@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Crée une instance de la classe Page
     let page = new Page();
         
-    console.log(page);
+    page.panelIn.addNewFlux(3);
+    page.panelOut.addNewFlux(3)
 
+    console.log(page);
     page.pageDisplay();
 });
