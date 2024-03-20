@@ -25,22 +25,6 @@ class Flux {
 }
 
 
-class Panel extends Page {
-    constructor() {
-        super ();
-        this.fluxHistory = [];
-        // this.AccountInOut = True / False => donne is poisitv 
-        // this.AccountNum = cree un id  de compter fictif pour gerer ex : epargne, facture etct 
-        // this.name = revenu / frais , etc ... 
-
-//         // numero
-//         //compte 
-    };
-
-}
-// ---------------
-
-
 
 
 

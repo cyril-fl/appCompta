@@ -11,8 +11,19 @@ export class Page {
     }
 
     pageDisplay() {
-        this.panelIn.panelDisplay();
-        this.panelOut.panelDisplay();
+        document.body.appendChild(this.panelIn.panelDisplay());
+        document.body.appendChild(this.panelOut.panelDisplay());
+    }
+
+    pageSave() {
+
+        console.log(this.panelIn);
+        console.log(this.panelOut);
+
+    let savedata = {panelIn : this.panelIn, panelOut : this.panelOut }
+
+        console.log(savedata);// et de la je dois faire appe a un fichier de sauvegarde et d'enccyptafe en sql
+
     }
 
             //*** DEBUG ***
