@@ -6,14 +6,26 @@ export class Page {
 
     constructor() {
         this.id = ++Page.pageId;
-        this.panelIn = new Panel(this.id, 'PanelIn'); // Crée une nouvelle instance de Panel pour panelIn
-        this.panelOut = new Panel(this.id, 'PanelOut'); // Crée une nouvelle instance de Panel pour panelOut
+        this.panelCollection = [];  
     }
 
-    pageDisplayƒ() {
-        document.body.appendChild(this.panelIn.panelDisplay());
-        document.body.appendChild(this.panelOut.panelDisplay());
+    display() {
+        let panelDiv = document.createElement('div');
+            panelDiv.setAttribute('id','panelDiv')
+            panelDiv.appendChild(this.panelIn.panelDisplay());
+            panelDiv.appendChild(this.panelOut.panelDisplay());
+        return panelDiv
     }
+
+    pageSet() {
+        if ( this.panelCollection.length == 0 ) {
+            this.panelIn = new Panel(this.id, `PanelIn ${this.id}`); // Crée une nouvelle instance de Panel pour panelIn
+            this.panelOut = new Panel(this.id, `PanelOut ${this.id}`); // Crée une nouvelle instance de Panel pour panelOut
+                this.panelCollection.push(this.panelIn, this.panelOut);
+        } 
+        return this.display();
+    }
+
 
     // pageSave() {
 

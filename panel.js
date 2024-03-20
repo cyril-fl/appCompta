@@ -8,18 +8,19 @@ export class Panel {
         this.pageId = pageId;
         this.id = ++Panel.panelId;
         this.name = name; 
-        this.fluxHistory = [];
+        this.fluxCollection = [];
     }
 
         async addNewFlux(nbr) {
             for (let i = 0; i < nbr; i++) {
-                let newFlux = new Flux('', 0);
-                    this.fluxHistory.push(newFlux); 
+                let newFlux = new Flux(this.id,'Libellé', 0);
+                    this.fluxCollection.push(newFlux); 
                 };
         };
 
 
         panelDisplay() {
+
             let panelDiv = document.createElement('div');
                 const divId = `panelDiv${this.id}`;
                 console.log(divId)
@@ -34,11 +35,16 @@ export class Panel {
                 panelDiv.appendChild(panelArray);
                 // panelDiv.appendChild(this.addNewFluxDisplay(divId))
             return panelDiv
+
+
         };
 
         panelArrayDisplay(divId) {
-            let tbody = document.createElement('tbody'); 
-                this.fluxHistory.forEach(flux => {
+            let tbody = document.createElement('tbody');
+                if(this.fluxCollection.length === 0 ) {
+                    this.addNewFlux(1);
+                }
+                this.fluxCollection.forEach(flux => {
                     let name = flux.name;
 
                     let value = flux.value;
