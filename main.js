@@ -4,8 +4,8 @@ import { Panel } from './panel.js';
 // import { Flux } from './flux.js';
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Crée une instance de la classe Page
+
+
     let page = new Page();
         
     page.panelIn.addNewFlux(3);
@@ -13,4 +13,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log(page);
     page.pageDisplay();
-});
+

@@ -20,18 +20,31 @@ export class Panel {
                 button.textContent = '+';
                     button.addEventListener('click', () => {
                         this.addNewFlux(1);
-                            this.panelDisplay(); 
+                        alert('New flux');
+                        ine
+                        // divData.innerHTML = '';// changer ke nom de div ect \
+
+                            // this.panelDisplay(); 
+
+
+
                     });
-                document.body.appendChild(button);
+                document.body.appendChild(button); // 
+
+                    
+                
         }
 
-        panelDisplay() {
 
+        panelDisplay() {
+            let panelDiv = document.createElement('div')
             let panelName = document.createElement('H1');
                 panelName.textContent = this.name;
                 document.body.appendChild(panelName);
-                    this.panelArrayDisplay();
+                   
                     this.addNewFluxDisplay();
+                    panelDiv.appendChild( this.panelArrayDisplay());
+                panelDiv.appendChild(panelName)
         };
 
         panelArrayDisplay() {
