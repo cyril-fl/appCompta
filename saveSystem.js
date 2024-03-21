@@ -4,15 +4,14 @@ import { Page } from './page.js';
 
 export class SaveFile {
 // Constructor
-    constructor() {
-        this.pageCollection = [];
+    constructor(pageCollection = [], creationDate= new Date, lastUpDate = new Date) {
+        this.pageCollection = pageCollection;
         this.pageCurrent;
-        this.creationDate = new Date;
-        this.lastUpDate = new Date;
+        this.creationDate = creationDate;
+        this.lastUpDate = lastUpDate;
     }
 // ____________________________________
 // Display  
-
     displayFile() {
         let pageCurrent = this.displayInit();
             document.body.appendChild(this.pageNav());
@@ -22,8 +21,12 @@ export class SaveFile {
     displayInit(pageId) { // renomener mieux
         let page;
             if (pageId) {
-                page = this.pageCollection.find(page => page.id === pageId);
+                page = this.pageCollection.find( page => page.id === pageId );
                     this.refresh('panelDiv',page.pageSet());
+            } else if (this.pageCollection.length !== 0){ 
+                page = this.pageCollection.find( page => page.id === 1 );
+                console.log(page)
+                    return page.pageSet()
             } else {
                 console.log('pas de page encore');
                     page = new Page;
@@ -119,41 +122,54 @@ export class SaveFile {
 
     saveFile() {
         this.lastUpDate = new Date();
-        // Ici, tu effectues la logique pour sauvegarder les données dans un fichier ou une base de données
-        // Par exemple, tu pourrais envoyer les données vers ton backend via une requête HTTP POST
-        console.log('Fichier sauvegardé');
         const toSave = { pageCollection : this.pageCollection, creationDate: this.creationDate, lastUpDate : this.lastUpDate };
-        const saveFile = JSON.stringify(toSave, null, 2);
-
-        console.log(saveFile);
-        //code inconue a detaillé 
-        const blob = new Blob([saveFile], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'data.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-
-
+            const saveFile = JSON.stringify(toSave, null, 2);
+                localStorage.setItem('data.json', saveFile);
+                console.log('Fichier sauvegardé');
     }
-
-
-    /** 
-
 
     loadFile() {
-        // Ici, tu effectues la logique pour charger les données depuis un fichier ou une base de données
-        // Par exemple, tu pourrais récupérer les données depuis ton backend via une requête HTTP GET
+        let save = localStorage.getItem('data.json');
         console.log('Fichier chargé');
+    
+        const saveData = JSON.parse(save);
+        const { pageCollection, creationDate, lastUpDate } = saveData;
+    
+        if (pageCollection && pageCollection.length > 0) {
+            pageCollection.forEach(pageData => {
+                let page = new Page(pageData.id);
+                    Page.resetId(page.id);
+                if (pageData.panelCollection && pageData.panelCollection.length > 0) {
+                    pageData.panelCollection.forEach(panelData => {
+                        let panel = new Panel(panelData.id, panelData.name);
+                            Panel.resetId(panel.id);
+                        if (panelData.fluxCollection && panelData.fluxCollection.length > 0) {
+                            panelData.fluxCollection.forEach(fluxData => {
+                                let flux = new Flux(fluxData.id, fluxData.name, fluxData.value);
+                                    Flux.resetId(flux.id);
+                                panel.fluxCollection.push(flux);
+                            });
+                        }
+                        page.panelCollection.push(panel);
+                    });
+                }
+                this.pageCollection.push(page);
+            });
+        }
+    
+        this.lastUpDate = lastUpDate;
+        this.creationDate = creationDate;
+
     }
+    
+    
+ }
+
+    /** 
 
     displayFile() {
         // this.pageNav();
         // Ici, tu pourrais ajouter d'autres éléments à afficher, en fonction de tes besoins
     }
     */
-}
+

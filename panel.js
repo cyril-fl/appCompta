@@ -3,12 +3,15 @@ import { Page } from './page.js';
 
 export class Panel {
     static panelId = 0;
+    static resetId(i) {
+        Panel.panelId = i;
+    }
 
-    constructor(pageId, name) {
+    constructor(pageId,name = `panel ${id}`, id = ++Panel.panelId, fluxCollection = []) {
         this.pageId = pageId;
-        this.id = ++Panel.panelId;
         this.name = name; 
-        this.fluxCollection = [];
+        this.id = id;
+        this.fluxCollection = fluxCollection;
     }
 
         async addNewFlux(nbr) {

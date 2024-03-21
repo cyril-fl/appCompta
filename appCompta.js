@@ -10,6 +10,7 @@ import { SaveFile } from './saveSystem.js';
 
 
 let file = new SaveFile;
+    file.loadFile();
     file.displayFile();
 
     

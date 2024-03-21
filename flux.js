@@ -3,8 +3,11 @@ import { Panel } from './panel.js';
 
 export class Flux {
     static lastId = 0;
+    static resetId(i) {
+        Flux.lastId = i;
+    }
 
-    constructor(panelId, name = 'Libellé', value = 0.00, toAccount, fromAccount, date = new Date(), comment = '') {
+    constructor(panelId, name = 'Libellé', value = 0.00, toAccount = '', fromAccount='', date = new Date(), comment = '') {
         this.panelId = panelId;
         this.id = ++Flux.lastId;
         this.name = name;
