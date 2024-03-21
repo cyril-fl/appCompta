@@ -1,5 +1,5 @@
 import { Page } from './page.js';
-import { Panel } from './panel.js';
+// import { Panel } from './panel.js';
 
 export class Flux {
     static lastId = 0;

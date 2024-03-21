@@ -7,29 +7,38 @@ export class Page {
             Page.pageId = i;
         }
 
-    constructor(id = ++Page.pageId, panelCollection = [] ) {
+    constructor(id = ++Page.pageId, collection = [] ) {
         this.id =id;
-        this.panelCollection = panelCollection;  
+        this.collection = collection;  
     }
 
-    display() {
-        let panelDiv = document.createElement('div');
-            panelDiv.setAttribute('class','page')
-
-                this.panelCollection.forEach(panel => {
-                    panelDiv.appendChild(panel.panelDisplay())
-                });
-  
-        return panelDiv
-    }
-
-    pageSet() {
+    set() {
         if ( this.panelCollection.length == 0 ) {
+        // retravailler sur cette parti ci 
             let panelIn = new Panel(this.id ,`PanelIn ${this.id}`); // Crée une nouvelle instance de Panel pour panelIn
             let panelOut = new Panel(this.id ,`PanelOut ${this.id}`); // Crée une nouvelle instance de Panel pour panelOut
                 this.panelCollection.push(panelIn, panelOut);
         } 
             return this.display();
+    }
+
+    display() {
+        let page = document.createElement('div');
+            page.setAttribute('class','page')
+                //     //clean a partir d'ici .
+
+                // this.collection.forEach(panel => {
+
+                //     // page.appendChild(panel.panelDisplay())
+
+                // });
+
+        //iciiiii
+
+
+        console.error('clean a partir dici');
+        
+        return page
     }
 
 }
