@@ -17,7 +17,9 @@ export class Panel {
         async addNewFlux(nbr) {
             for (let i = 0; i < nbr; i++) {
                 let newFlux = new Flux(this.id,'Libellé', 0);
-                    this.fluxCollection.push(newFlux); 
+                    // this.fluxCollection.push(newFlux); 
+
+                    this.fluxCollection.splice(2,0,newFlux);
                 };
         };
 
@@ -42,43 +44,46 @@ export class Panel {
 
         };
 
+        
+        newCell(defaultValue ,event) {
+            let valueTd = document.createElement('td');
+            let valueInput = document.createElement('input');
+                valueInput.setAttribute('type', 'text');
+                valueInput.setAttribute('placeholder', defaultValue);
+                if (event) { // Vérification si 'event' existe avant d'ajouter l'écouteur
+                    valueInput.addEventListener('input', event); // Modification de 'event(event)' à 'event' pour ajouter l'écouteur correctement
+                }
+                valueTd.appendChild(valueInput);
+            return valueTd
+        }
+
         panelArrayDisplay(divId) {
             let tbody = document.createElement('tbody');
                 if(this.fluxCollection.length === 0 ) {
                     this.addNewFlux(1);
                 }
                 this.fluxCollection.forEach(flux => {
-                    let name = flux.name;
-
-                    let value = flux.value;
-
+                    const { panelId, id, name, isPositif, value, toAccount, fromAccount, date, comment, } = flux;
                         let tableIncome = document.createElement('tr');
-                            let nameTd = document.createElement('td');
-                                let nameInput = document.createElement('input');
-                                    nameInput.setAttribute('type', 'text');
-                                    nameInput.setAttribute('placeholder', name);
-                                        nameInput.addEventListener('input', event => {
-                                            flux.name = event.target.value; // Mettre à jour le nom dans fluxHistory
-                                            // this.updateFluxDOM(); // Mettre à jour l'affichage
-                                        });
-                                nameTd.appendChild(nameInput);
 
-                            let valueTd = document.createElement('td');
-                                let valueInput = document.createElement('input');
-                                    valueInput.setAttribute('type', 'text');
-                                    valueInput.setAttribute('placeholder', value);
-                                        valueInput.addEventListener('input', event => {
-                                            let newValue = parseFloat(event.target.value);
-                                                if (!isNaN(newValue)) {
-                                                    flux.value = newValue; // Mettre à jour la valeur dans fluxHistory
-                                                        // this.updateFluxDOM(); // Mettre à jour l'affichage DEBUG
-                                                } else {
-                                                    console.error('La valeur entrée n\'est pas un nombre valide.');
-                                                }
-                                        });
-                                valueTd.appendChild(valueInput);
+                            let nameEvent = (event) => {
+                                flux.name = event.target.value;
+                            };
+                                let nameTd = this.newCell(name,nameEvent);
+
+                            let valueEvent = (event) => {
+                                let newValue = parseFloat(event.target.value);
+                                    if (!isNaN(newValue)) {
+                                        flux.value = newValue; // Mettre à jour la valeur dans fluxHistory
+                                                    // this.updateFluxDOM(); // Mettre à jour l'affichage DEBUG
+                                    } else {
+                                        console.error('La valeur entrée n\'est pas un nombre valide.');
+                                    }
+                            };
+                                let valueTd = this.newCell(value, valueEvent)
 
                                 let buttonTd = document.createElement('td');
+                                    buttonTd.setAttribute('id',`buttonTd${id}`)
                                     buttonTd.appendChild(this.addNewFluxDisplay(divId));
 
                         tableIncome.appendChild(nameTd);
@@ -95,8 +100,9 @@ export class Panel {
             let button = document.createElement('button');
             button.textContent = '+';
             button.addEventListener('click', () => {
-                this.addNewFlux(1);
                 let panelDiv = document.getElementById(divId);
+                this.addNewFlux(1);
+
                 if (panelDiv) {
                     // Supprimer tous les éléments enfants de panelDiv
                     while (panelDiv.firstChild) {
