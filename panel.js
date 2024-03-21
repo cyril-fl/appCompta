@@ -27,21 +27,16 @@ export class Panel {
         panelDisplay() {
 
             let panelDiv = document.createElement('div');
-                const divId = `panelDiv${this.id}`;
-                console.log(divId)
-                panelDiv.setAttribute('id', divId);
+                panelDiv.setAttribute('class', 'panel');
 
                 let panelName = document.createElement('h1');
                     panelName.textContent = this.name;
 
-                    let panelArray = this.panelArrayDisplay(divId); // Appel de la méthode pour récupérer l'élément tableIncome
+                    let panelArray = this.panelArrayDisplay(); // Appel de la méthode pour récupérer l'élément tableIncome
 
                     panelDiv.appendChild(panelName);
                 panelDiv.appendChild(panelArray);
-                // panelDiv.appendChild(this.addNewFluxDisplay(divId))
             return panelDiv
-
-
         };
 
         

@@ -2,7 +2,7 @@ import { Flux } from './flux.js';
 import { Panel } from './panel.js';
 import { Page } from './page.js';
 
-export class SaveFile {
+export class File {
 // Constructor
     constructor(pageCollection = [], creationDate= new Date, lastUpDate = new Date) {
         this.pageCollection = pageCollection;
@@ -12,12 +12,6 @@ export class SaveFile {
     }
 // ____________________________________
 // Display  
-    displayFile() {
-        let pageCurrent = this.displayInit();
-            document.body.appendChild(this.pageNav());
-                    document.body.appendChild(pageCurrent);
-    };
-
     displayInit(pageId) { // renomener mieux
         let page;
             if (pageId) {
@@ -162,14 +156,4 @@ export class SaveFile {
 
     }
     
-    
  }
-
-    /** 
-
-    displayFile() {
-        // this.pageNav();
-        // Ici, tu pourrais ajouter d'autres éléments à afficher, en fonction de tes besoins
-    }
-    */
-

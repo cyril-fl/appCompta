@@ -1,7 +1,7 @@
 import { Flux } from './flux.js';
 import { Panel } from './panel.js';
 import { Page } from './page.js';
-import { SaveFile } from './saveSystem.js';
+import { File } from './fileSystem.js';
 
 // import { Flux } from './flux.js';
 
@@ -9,9 +9,13 @@ import { SaveFile } from './saveSystem.js';
 //faire une verrife sinon nouvelle save et load
 
 
-let file = new SaveFile;
-    file.loadFile();
-    file.displayFile();
+let file = new File;
+    // file.loadFile();
+    // file.saveFile();
+
+    let pageCurrent = file.displayInit();
+        document.body.appendChild(file.pageNav());
+            document.body.appendChild(pageCurrent);
 
     
 
