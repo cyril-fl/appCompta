@@ -13,11 +13,11 @@ export class Page {
     }
 
     set() {
-        if ( this.panelCollection.length == 0 ) {
+        if ( this.collection.length === 0 ) {
         // retravailler sur cette parti ci 
             let panelIn = new Panel(this.id ,`PanelIn ${this.id}`); // Crée une nouvelle instance de Panel pour panelIn
             let panelOut = new Panel(this.id ,`PanelOut ${this.id}`); // Crée une nouvelle instance de Panel pour panelOut
-                this.panelCollection.push(panelIn, panelOut);
+                this.collection.push(panelIn, panelOut);
         } 
             return this.display();
     }
@@ -25,17 +25,10 @@ export class Page {
     display() {
         let page = document.createElement('div');
             page.setAttribute('class','page')
-                //     //clean a partir d'ici .
-
-                // this.collection.forEach(panel => {
-
-                //     // page.appendChild(panel.panelDisplay())
-
-                // });
-
+                this.collection.forEach(panel => {
+                    page.appendChild(panel.display())
+                });
         //iciiiii
-
-
         console.error('clean a partir dici');
         
         return page
